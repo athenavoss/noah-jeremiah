@@ -17,11 +17,10 @@ export default function Collection() {
       {pieces.map((piece, i) => (
         <div
           key={piece.slug}
-          className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#111111]"
+          className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
         >
           {/* Warm directional side-light — alternating */}
-          <div
-            className="absolute inset-0 pointer-events-none"
+          <div className="absolute inset-0 pointer-events-none"
             style={{
               background: i % 2 === 0
                 ? "linear-gradient(110deg, rgba(197,165,114,0.10) 0%, rgba(197,165,114,0.03) 25%, transparent 50%)"
@@ -30,11 +29,8 @@ export default function Collection() {
           />
 
           {/* Warm radial glow behind product */}
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vh] pointer-events-none"
-            style={{
-              background: "radial-gradient(ellipse at center, rgba(245,230,200,0.15) 0%, rgba(201,169,110,0.08) 35%, transparent 55%)",
-            }}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vh] pointer-events-none"
+            style={{ background: "radial-gradient(ellipse at center, rgba(245,230,200,0.15) 0%, rgba(201,169,110,0.08) 35%, transparent 55%)" }}
           />
 
           {/* Product image */}
@@ -93,7 +89,7 @@ export default function Collection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 0.15 }}
             viewport={{ once: true }}
-            className="absolute bottom-8 right-8 sm:right-12 text-[11px] font-[300] tracking-[0.4em] text-[#F0EBE3]"
+            className="absolute bottom-8 right-8 sm:right-12 text-[11px] font-[300] tracking-[0.4em] text-[#F0EBE3] z-20"
             style={{ fontFamily: "var(--font-inter)" }}
           >
             {String(i + 2).padStart(2, "0")}

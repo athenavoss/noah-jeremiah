@@ -23,6 +23,20 @@ body {
   background: #111111;
   color: #F0EBE3;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Marble texture as very subtle overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('/marble-bg.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
 }
 
 ::selection {
@@ -38,7 +52,7 @@ body {
   scrollbar-width: none;
 }
 
-/* Product glow — warm side light + shadow */
+/* Product glow — subtle drop shadow + rim light */
 .product-glow {
   filter: drop-shadow(0 0 100px rgba(197, 165, 114, 0.18)) drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 3px rgba(240, 235, 227, 0.08));
 }

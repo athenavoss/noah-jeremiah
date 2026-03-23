@@ -13,7 +13,7 @@ export default function Studio() {
       {/* Faint NJ watermark */}
       <motion.p
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 0.03 }}
+        whileInView={{ opacity: 0.015 }}
         viewport={{ once: true }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[200px] sm:text-[300px] font-[400] tracking-[0.1em] text-[#F0EBE3] pointer-events-none select-none whitespace-nowrap"
         style={{ fontFamily: "var(--font-playfair)" }}
