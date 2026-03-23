@@ -40,7 +40,7 @@ body {
 
 /* Product glow — warm side light + shadow */
 .product-glow {
-  filter: drop-shadow(0 0 100px rgba(197, 165, 114, 0.18)) drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 0 100px rgba(197, 165, 114, 0.18)) drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 3px rgba(240, 235, 227, 0.08));
 }
 
 /* Custom cursor */

@@ -245,7 +245,7 @@ export default function ProductPage() {
             style={{ fontFamily: "var(--font-inter)" }}>
             {product.description}
           </p>
-          <p className="text-[9px] font-[300] tracking-[0.3em] text-[#8A8580]/50 uppercase mb-10"
+          <p className="text-[8px] xl:text-[9px] font-[300] tracking-[0.25em] xl:tracking-[0.3em] text-[#8A8580]/50 uppercase mb-10 whitespace-nowrap"
             style={{ fontFamily: "var(--font-inter)" }}>
             {product.materials}
           </p>

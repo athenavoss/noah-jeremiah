@@ -17,7 +17,7 @@ export default function Collection() {
       {pieces.map((piece, i) => (
         <div
           key={piece.slug}
-          className="relative min-h-screen w-full flex items-center justify-center overflow-hidden"
+          className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#111111]"
         >
           {/* Warm directional side-light — alternating */}
           <div

@@ -16,9 +16,9 @@ export default function Hero() {
 
       {/* Warm radial glow behind product */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[90vh] pointer-events-none"
+        className="absolute top-[52%] sm:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[90vh] pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, rgba(245,230,200,0.18) 0%, rgba(201,169,110,0.10) 35%, transparent 60%)",
+          background: "radial-gradient(ellipse at center, rgba(245,230,200,0.22) 0%, rgba(201,169,110,0.12) 35%, transparent 60%)",
         }}
       />
 
@@ -60,7 +60,7 @@ export default function Hero() {
           style={{ fontFamily: "var(--font-inter)" }}>
           Women
         </p>
-        <p className="text-[18px] sm:text-[24px] font-[400] tracking-[0.03em] sm:tracking-[0.05em] text-[#F0EBE3]/60"
+        <p className="text-[15px] sm:text-[24px] font-[400] tracking-[0.02em] sm:tracking-[0.05em] text-[#F0EBE3]/60 whitespace-nowrap"
           style={{ fontFamily: "var(--font-playfair)" }}>
           Ribbed Long Sleeve Dress
         </p>
