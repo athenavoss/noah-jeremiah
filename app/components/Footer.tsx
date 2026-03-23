@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full py-14 sm:py-20 px-8 sm:px-12">
+    <footer className="relative w-full py-10 sm:py-14 px-8 sm:px-12">
       {/* Thin gold divider */}
       <motion.div
         initial={{ scaleX: 0 }}

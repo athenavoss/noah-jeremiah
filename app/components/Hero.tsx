@@ -16,9 +16,9 @@ export default function Hero() {
 
       {/* Warm radial glow behind product */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[90vh] pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, rgba(245,230,200,0.14) 0%, rgba(201,169,110,0.08) 35%, transparent 58%)",
+          background: "radial-gradient(ellipse at center, rgba(245,230,200,0.18) 0%, rgba(201,169,110,0.10) 35%, transparent 60%)",
         }}
       />
 
@@ -76,7 +76,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 sm:bottom-14 left-10 sm:left-12 text-[8px] sm:text-[10px] font-[300] tracking-[0.4em] sm:tracking-[0.5em] text-[#C5A572]/60 uppercase"
+        className="absolute bottom-14 sm:bottom-14 left-10 sm:left-12 text-[8px] sm:text-[10px] font-[300] tracking-[0.4em] sm:tracking-[0.5em] text-[#C5A572]/60 uppercase"
         style={{ fontFamily: "var(--font-inter)" }}
       >
         Hollywood. Handmade.

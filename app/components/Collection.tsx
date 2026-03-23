@@ -33,7 +33,7 @@ export default function Collection() {
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vh] pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse at center, rgba(245,230,200,0.12) 0%, rgba(201,169,110,0.07) 35%, transparent 55%)",
+              background: "radial-gradient(ellipse at center, rgba(245,230,200,0.15) 0%, rgba(201,169,110,0.08) 35%, transparent 55%)",
             }}
           />
 
