@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #111111;
-  --color-foreground: #F0EBE3;
-  --color-muted: #8A8580;
+  --color-background: #EDEBE8;
+  --color-foreground: #2A2A28;
+  --color-surface: #F7F5F2;
+  --color-muted: #6B6862;
   --color-accent: #C5A572;
+  --color-border: rgba(42, 42, 40, 0.08);
   --font-serif: var(--font-playfair);
   --font-sans: var(--font-inter);
 }
@@ -20,28 +22,17 @@ html {
 }
 
 body {
-  background: #111111;
-  color: #F0EBE3;
+  background: #EDEBE8;
+  color: #2A2A28;
   overflow-x: hidden;
   position: relative;
 }
 
-/* Marble texture as very subtle overlay */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url('/marble-bg.png');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: 0;
-}
+/* SVG noise texture removed — real concrete texture used below hero */
 
 ::selection {
   background: #C5A572;
-  color: #111111;
+  color: #2A2A28;
 }
 
 ::-webkit-scrollbar {
@@ -52,9 +43,14 @@ body {
   scrollbar-width: none;
 }
 
-/* Product glow — subtle drop shadow + rim light */
-.product-glow {
-  filter: drop-shadow(0 0 100px rgba(197, 165, 114, 0.18)) drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 3px rgba(240, 235, 227, 0.08));
+/* Scroll margin for anchored section scrolling */
+section {
+  scroll-margin-top: 40px;
+}
+
+/* Product shadow — warm glow on dark concrete */
+.product-shadow {
+  filter: drop-shadow(0 20px 50px rgba(197, 165, 114, 0.15)) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
 }
 
 /* Custom cursor */
@@ -63,16 +59,32 @@ body {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #C5A572;
+  background: #2A2A28;
   mix-blend-mode: difference;
   pointer-events: none;
   z-index: 99999;
   transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .custom-cursor.hovering {
   width: 40px;
   height: 40px;
-  background: rgba(197, 165, 114, 0.5);
+  background: rgba(42, 42, 40, 0.5);
+}
+
+/* Expanded cursor for gallery/carousel images */
+.custom-cursor.hovering-gallery {
+  width: 64px;
+  height: 64px;
+  background: rgba(42, 42, 40, 0.35);
+}
+
+/* Hide scrollbar on horizontal gallery */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

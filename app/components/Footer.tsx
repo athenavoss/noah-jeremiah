@@ -10,7 +10,7 @@ export default function Footer() {
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="w-16 h-[1px] bg-[#C5A572]/40 mx-auto mb-10 sm:mb-14 origin-center"
       />
 
@@ -23,10 +23,19 @@ export default function Footer() {
       >
         <a
           href="mailto:inquire@noahjeremiah.com"
-          className="block text-[12px] sm:text-[13px] font-[300] tracking-[0.15em] text-[#C5A572] hover:text-[#F0EBE3] transition-colors duration-500"
+          className="block text-[12px] sm:text-[13px] font-[300] tracking-[0.15em] text-[#C5A572] hover:text-[#2A2A28] transition-colors duration-500"
           style={{ fontFamily: "var(--font-inter)" }}
         >
           inquire@noahjeremiah.com
+        </a>
+        <a
+          href="https://www.instagram.com/noahjeremi4h/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-[11px] sm:text-[12px] font-[300] tracking-[0.15em] text-[#C5A572] hover:text-[#2A2A28] transition-colors duration-500"
+          style={{ fontFamily: "var(--font-inter)" }}
+        >
+          @noahjeremi4h
         </a>
         <p
           className="text-[10px] sm:text-[11px] font-[300] tracking-[0.4em] text-[#8A8580]/60 uppercase"
@@ -38,7 +47,7 @@ export default function Footer() {
           className="text-[9px] font-[300] tracking-[0.3em] text-[#8A8580]/30 uppercase pt-8"
           style={{ fontFamily: "var(--font-inter)" }}
         >
-          © 2026 Noah Jeremiah
+          &copy; 2026 Noah Jeremiah
         </p>
       </motion.div>
     </footer>

@@ -1,105 +1,116 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Image from "next/image";
+
+const heroImages = [
+  { src: "/hero/hoodie-closeup.jpg", alt: "Textural craft detail", textColor: "#1E1E1C", taglineColor: "#CDA558" },
+  { src: "/hero/leather-coat.jpg", alt: "Structured outerwear", textColor: "#2A2A28", taglineColor: "#E0BA6E" },
+];
+
+const HOLD_DURATION = 6000;
+const FADE_DURATION = 1.8;
+const ZOOM_SCALE = 1.05;
 
 export default function Hero() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % heroImages.length);
+    }, HOLD_DURATION);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-      {/* Warm directional side-light from left */}
-      <div className="absolute inset-0 pointer-events-none z-[1]"
-        style={{ background: "linear-gradient(110deg, rgba(197,165,114,0.12) 0%, rgba(197,165,114,0.04) 25%, transparent 50%)" }}
-      />
+    <section className="relative min-h-[100dvh] w-full overflow-hidden flex items-center justify-center">
+      {/* Both images always rendered, opacity controlled */}
+      {heroImages.map((img, i) => (
+        <motion.div
+          key={img.src}
+          animate={{
+            opacity: i === current ? 1 : 0,
+            scale: i === current ? [1, ZOOM_SCALE] : 1,
+          }}
+          transition={{
+            opacity: { duration: FADE_DURATION, ease: [0.16, 1, 0.3, 1] },
+            scale: { duration: HOLD_DURATION / 1000, ease: "easeOut" },
+          }}
+          className="absolute inset-0"
+          style={{ zIndex: i === current ? 1 : 0 }}
+        >
+          <Image
+            src={img.src}
+            alt={img.alt}
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            priority={i === 0}
+          />
+          {/* Subtle overlay for text legibility */}
+          <div className="absolute inset-0 bg-[#EDEBE8]/20" />
+        </motion.div>
+      ))}
 
-      {/* Warm radial glow behind product */}
-      <div className="absolute top-[52%] sm:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[90vh] pointer-events-none z-[1]"
-        style={{ background: "radial-gradient(ellipse at center, rgba(245,230,200,0.22) 0%, rgba(201,169,110,0.12) 35%, transparent 60%)" }}
-      />
+      {/* Fixed centered text — doesn't move */}
+      <div className="relative z-20 text-center px-6">
+        {/* Mask-reveal headline: clips from left to right */}
+        <motion.h1
+          initial={{ clipPath: "inset(0 100% 0 0)" }}
+          animate={{ clipPath: "inset(0 0% 0 0)" }}
+          transition={{ delay: 0.5, duration: 1.5, ease: [0.65, 0, 0.35, 1] }}
+          className="text-[36px] sm:text-[52px] md:text-[72px] lg:text-[88px] font-[400] tracking-[0.08em] transition-colors duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+          style={{
+            fontFamily: "var(--font-playfair)",
+            color: heroImages[current].textColor,
+            textShadow: "none",
+          }}
+        >
+          NOAH JEREMIAH
+        </motion.h1>
 
-      {/* NJ Monogram — top left, gold */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.8 }}
+          transition={{ delay: 1.8, duration: 1 }}
+          className="mt-4 sm:mt-6 text-[10px] sm:text-[13px] font-[300] tracking-[0.5em] uppercase transition-colors duration-[1800ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+          style={{ color: heroImages[current].taglineColor, fontFamily: "var(--font-inter)" }}
+        >
+          Hollywood. Handmade.
+        </motion.p>
+      </div>
+
+      {/* NJ Monogram — top left with breathing animation */}
       <motion.p
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5 }}
-        transition={{ delay: 0.5, duration: 1.5 }}
-        className="absolute top-8 left-8 sm:top-12 sm:left-12 text-[22px] sm:text-[26px] font-[400] tracking-[0.15em] text-[#C5A572] z-20"
+        animate={{
+          opacity: 0.6,
+          scale: [1, 1.06, 1],
+        }}
+        transition={{
+          opacity: { delay: 0.3, duration: 1.2 },
+          scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+        }}
+        className="absolute top-8 left-8 sm:top-12 sm:left-12 text-[22px] sm:text-[26px] font-[500] tracking-[0.15em] text-[#1A1A18] z-20"
         style={{ fontFamily: "var(--font-playfair)" }}
       >
         NJ
       </motion.p>
 
-      {/* Hero product */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6, duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10"
-      >
-        <Link href="/product/long-sleeve-dress">
-          <img
-            src="/products/long-sleeve-dress-nobg.png"
-            alt="Ribbed Long Sleeve Dress"
-            className="w-[60vw] sm:w-[33vw] max-w-[460px] product-glow"
-          />
-        </Link>
-      </motion.div>
-
-      {/* Product name */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-28 sm:bottom-32 left-1/2 -translate-x-1/2 text-center z-20"
-      >
-        <p className="text-[9px] font-[300] tracking-[0.5em] text-[#C5A572]/60 uppercase mb-2"
-          style={{ fontFamily: "var(--font-inter)" }}>
-          Women
-        </p>
-        <p className="text-[15px] sm:text-[24px] font-[400] tracking-[0.02em] sm:tracking-[0.05em] text-[#F0EBE3]/60 whitespace-nowrap"
-          style={{ fontFamily: "var(--font-playfair)" }}>
-          Ribbed Long Sleeve Dress
-        </p>
-        <Link href="/product/long-sleeve-dress"
-          className="inline-block mt-3 text-[9px] font-[300] tracking-[0.4em] text-[#C5A572]/40 uppercase hover:text-[#C5A572] transition-colors duration-300"
-          style={{ fontFamily: "var(--font-inter)" }}>
-          View Piece
-        </Link>
-      </motion.div>
-
-      {/* Tagline */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-14 sm:bottom-14 left-10 sm:left-12 text-[8px] sm:text-[10px] font-[300] tracking-[0.4em] sm:tracking-[0.5em] text-[#C5A572]/60 uppercase z-20"
-        style={{ fontFamily: "var(--font-inter)" }}
-      >
-        Hollywood. Handmade.
-      </motion.p>
-
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5 }}
-        transition={{ delay: 2.5, duration: 1 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-[1px] h-10 bg-gradient-to-b from-[#C5A572]/50 to-transparent"
+          className="w-[1px] h-10 bg-gradient-to-b from-[#2A2A28]/40 to-transparent"
         />
       </motion.div>
-
-      {/* Section number */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.15 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 right-8 sm:right-12 text-[11px] font-[300] tracking-[0.4em] text-[#F0EBE3] z-20"
-        style={{ fontFamily: "var(--font-inter)" }}
-      >
-        01
-      </motion.p>
     </section>
   );
 }
