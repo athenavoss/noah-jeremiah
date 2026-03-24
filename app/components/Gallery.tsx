@@ -85,10 +85,12 @@ export default function Gallery() {
   // Track scroll progress of the horizontal container for parallax
   const { scrollXProgress } = useScroll({ container: scrollContainerRef });
 
-  const scrollBy = (direction: number) => {
+  const scrollGallery = (direction: number) => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    const scrollAmount = container.clientWidth * 0.6;
+    // Scroll by one image width + gap
+    const firstChild = container.querySelector(".snap-center") as HTMLElement;
+    const scrollAmount = firstChild ? firstChild.offsetWidth + 24 : container.clientWidth * 0.6;
     container.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
   };
 
@@ -145,7 +147,7 @@ export default function Gallery() {
       <div className="relative">
         <div
           ref={scrollContainerRef}
-          className="flex gap-3 sm:gap-6 overflow-x-auto px-[15vw] sm:px-[10vw] snap-x snap-mandatory touch-pan-x overscroll-x-contain"
+          className="flex gap-3 sm:gap-6 overflow-x-auto px-[15vw] sm:px-[10vw] snap-x snap-proximity touch-pan-x overscroll-x-contain"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -168,18 +170,16 @@ export default function Gallery() {
 
         {/* Desktop arrow buttons */}
         <button
-          onClick={() => scrollBy(-1)}
-          className="hidden sm:flex absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-40 w-12 h-12 items-center justify-center rounded-full border border-[#2A2A28]/30 text-[#2A2A28]/50 hover:text-[#2A2A28] hover:border-[#2A2A28]/60 transition-all duration-300"
-          data-hover
+          onClick={(e) => { e.stopPropagation(); scrollGallery(-1); }}
+          className="hidden sm:flex absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-50 w-12 h-12 items-center justify-center rounded-full border border-[#2A2A28]/30 text-[#2A2A28]/50 hover:text-[#2A2A28] hover:border-[#2A2A28]/60 hover:bg-[#2A2A28]/5 transition-all duration-300 cursor-pointer"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
         <button
-          onClick={() => scrollBy(1)}
-          className="hidden sm:flex absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-40 w-12 h-12 items-center justify-center rounded-full border border-[#2A2A28]/30 text-[#2A2A28]/50 hover:text-[#2A2A28] hover:border-[#2A2A28]/60 transition-all duration-300"
-          data-hover
+          onClick={(e) => { e.stopPropagation(); scrollGallery(1); }}
+          className="hidden sm:flex absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-50 w-12 h-12 items-center justify-center rounded-full border border-[#2A2A28]/30 text-[#2A2A28]/50 hover:text-[#2A2A28] hover:border-[#2A2A28]/60 hover:bg-[#2A2A28]/5 transition-all duration-300 cursor-pointer"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M9 18l6-6-6-6" />
