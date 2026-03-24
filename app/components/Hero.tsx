@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const heroImages = [
-  { src: "/hero/hoodie-closeup.jpg", alt: "Textural craft detail", textColor: "#1E1E1C", taglineColor: "#CDA558" },
-  { src: "/hero/leather-coat.jpg", alt: "Structured outerwear", textColor: "#2A2A28", taglineColor: "#E0BA6E" },
+  { src: "/hero/hoodie-closeup.jpg", alt: "Textural craft detail", textColor: "#1E1E1C", taglineColor: "#CDA558", edgeColor: "#d4d0ca" },
+  { src: "/hero/leather-coat.jpg", alt: "Structured outerwear", textColor: "#2A2A28", taglineColor: "#E0BA6E", edgeColor: "#c8c4be" },
 ];
 
 const HOLD_DURATION = 6000;
@@ -38,15 +38,14 @@ export default function Hero() {
             scale: { duration: HOLD_DURATION / 1000, ease: "easeOut" },
           }}
           className="absolute inset-0 flex items-center justify-center"
-          style={{ zIndex: i === current ? 1 : 0 }}
+          style={{ zIndex: i === current ? 1 : 0, backgroundColor: img.edgeColor }}
         >
           <Image
             src={img.src}
             alt={img.alt}
-            width={1080}
-            height={1280}
-            className="max-h-full w-auto object-contain"
-            sizes="(max-width: 768px) 100vw, 60vw"
+            fill
+            className="object-contain sm:object-cover object-center"
+            sizes="100vw"
             priority={i === 0}
           />
           {/* Subtle overlay for text legibility */}
