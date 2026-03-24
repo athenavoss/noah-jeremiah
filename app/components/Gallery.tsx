@@ -85,28 +85,12 @@ export default function Gallery() {
   // Track scroll progress of the horizontal container for parallax
   const { scrollXProgress } = useScroll({ container: scrollContainerRef });
 
-  // Desktop: convert vertical mousewheel to horizontal scroll
-  useEffect(() => {
+  const scrollBy = (direction: number) => {
     const container = scrollContainerRef.current;
     if (!container) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      // Only intercept if mouse is over the gallery and there's scrollable content
-      if (container.scrollWidth <= container.clientWidth) return;
-
-      const atStart = container.scrollLeft <= 0;
-      const atEnd = container.scrollLeft >= container.scrollWidth - container.clientWidth - 1;
-
-      // If scrolling down and not at end, or scrolling up and not at start — capture
-      if ((e.deltaY > 0 && !atEnd) || (e.deltaY < 0 && !atStart)) {
-        e.preventDefault();
-        container.scrollLeft += e.deltaY;
-      }
-    };
-
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    return () => container.removeEventListener("wheel", handleWheel);
-  }, []);
+    const scrollAmount = container.clientWidth * 0.6;
+    container.scrollBy({ left: direction * scrollAmount, behavior: "smooth" });
+  };
 
   // IntersectionObserver to track active image
   useEffect(() => {
@@ -157,28 +141,50 @@ export default function Gallery() {
         />
       </motion.div>
 
-      {/* Horizontal scroll gallery */}
-      <div
-        ref={scrollContainerRef}
-        className="flex gap-3 sm:gap-6 overflow-x-auto px-[15vw] sm:px-[10vw] snap-x snap-mandatory touch-pan-x overscroll-x-contain"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          scrollSnapStop: "always",
-        }}
-      >
-        {galleryItems.map((item, i) => (
-          <div key={item.src} ref={(el) => { imageRefs.current[i] = el; }} className="snap-center flex-shrink-0" style={{ scrollSnapStop: "always" }}>
-            <GalleryImage
-              src={item.src}
-              alt={item.alt}
-              index={i}
-              scrollProgress={scrollXProgress}
-            />
-          </div>
-        ))}
-        {/* Spacer to allow last image to center */}
-        <div className="flex-shrink-0 w-[15vw] sm:w-[10vw]" />
+      {/* Horizontal scroll gallery with arrows */}
+      <div className="relative">
+        <div
+          ref={scrollContainerRef}
+          className="flex gap-3 sm:gap-6 overflow-x-auto px-[15vw] sm:px-[10vw] snap-x snap-mandatory touch-pan-x overscroll-x-contain"
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            scrollSnapStop: "always",
+          }}
+        >
+          {galleryItems.map((item, i) => (
+            <div key={item.src} ref={(el) => { imageRefs.current[i] = el; }} className="snap-center flex-shrink-0" style={{ scrollSnapStop: "always" }}>
+              <GalleryImage
+                src={item.src}
+                alt={item.alt}
+                index={i}
+                scrollProgress={scrollXProgress}
+              />
+            </div>
+          ))}
+          {/* Spacer to allow last image to center */}
+          <div className="flex-shrink-0 w-[15vw] sm:w-[10vw]" />
+        </div>
+
+        {/* Desktop arrow buttons */}
+        <button
+          onClick={() => scrollBy(-1)}
+          className="hidden sm:flex absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-40 w-12 h-12 items-center justify-center rounded-full border border-[#2A2A28]/30 text-[#2A2A28]/50 hover:text-[#2A2A28] hover:border-[#2A2A28]/60 transition-all duration-300"
+          data-hover
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button
+          onClick={() => scrollBy(1)}
+          className="hidden sm:flex absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-40 w-12 h-12 items-center justify-center rounded-full border border-[#2A2A28]/30 text-[#2A2A28]/50 hover:text-[#2A2A28] hover:border-[#2A2A28]/60 transition-all duration-300"
+          data-hover
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
       </div>
 
       {/* Dot indicators */}
