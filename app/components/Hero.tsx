@@ -37,15 +37,16 @@ export default function Hero() {
             opacity: { duration: FADE_DURATION, ease: [0.16, 1, 0.3, 1] },
             scale: { duration: HOLD_DURATION / 1000, ease: "easeOut" },
           }}
-          className="absolute inset-0"
+          className="absolute inset-0 flex items-center justify-center"
           style={{ zIndex: i === current ? 1 : 0 }}
         >
           <Image
             src={img.src}
             alt={img.alt}
-            fill
-            className="object-cover object-center"
-            sizes="100vw"
+            width={1080}
+            height={1280}
+            className="max-h-full w-auto object-contain"
+            sizes="(max-width: 768px) 100vw, 60vw"
             priority={i === 0}
           />
           {/* Subtle overlay for text legibility */}
